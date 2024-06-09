@@ -2,10 +2,53 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>hello, World</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click Counter Game</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        #counter {
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+            user-select: none; /* Отключаем выделение текста */
+            outline: none; /* Убираем рамку при фокусе */
+        }
+    </style>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-<p>What's up?</p>
+    <div id="counter">0</div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const counterElement = document.getElementById('counter');
+            let count = 0;
 
+            // Инициализация Telegram WebApp
+            const tg = window.Telegram.WebApp;
+            tg.expand(); // Разворачиваем приложение на весь экран
+
+            document.body.addEventListener('click', () => {
+                count++;
+                counterElement.textContent = count;
+                
+                if (count === 10) {
+                    alert('Поздравляем! Вы достигли 10 нажатий!');
+                }
+
+                counterElement.blur(); // Убираем фокус с элемента
+            });
+        });
+    </script>
 </body>
 </html>
