@@ -46,7 +46,7 @@
                 counterElement.textContent = count;
                 localStorage.setItem('clickCounter', count);
 
-                if (count >= 10) {
+                if (number % 100 === 0) {
                     alert('Поздравляем! Вы достигли 10 нажатий!');
                 }
             };
