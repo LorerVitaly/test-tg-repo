@@ -32,21 +32,31 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const counterElement = document.getElementById('counter');
-            let count = 0;
+            let count = parseInt(localStorage.getItem('clickCounter')) || 0;
+
+            // Обновление отображаемого значения счётчика при загрузке страницы
+            counterElement.textContent = count;
 
             // Инициализация Telegram WebApp
             const tg = window.Telegram.WebApp;
             tg.expand(); // Разворачиваем приложение на весь экран
 
-            document.body.addEventListener('click', () => {
-                count++;
+            const updateCounter = (increment) => {
+                count += increment;
                 counterElement.textContent = count;
-                
-                if (count === 10) {
+                localStorage.setItem('clickCounter', count);
+
+                if (count >= 10) {
                     alert('Поздравляем! Вы достигли 10 нажатий!');
                 }
+            };
 
-                counterElement.blur(); // Убираем фокус с элемента
+            document.body.addEventListener('touchstart', (event) => {
+                updateCounter(event.touches.length);
+            });
+
+            document.body.addEventListener('click', () => {
+                updateCounter(1);
             });
         });
     </script>
